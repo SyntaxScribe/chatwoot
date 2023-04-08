@@ -4,6 +4,7 @@
 #
 #  id                     :integer          not null, primary key
 #  availability           :integer          default("online")
+#  azar_display_name      :string
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime
@@ -13,9 +14,11 @@
 #  display_name           :string
 #  email                  :string
 #  encrypted_password     :string           default(""), not null
+#  gbits_display_name     :string
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
 #  message_signature      :text
+#  mono_display_name      :string
 #  name                   :string           not null
 #  provider               :string           default("email"), not null
 #  pubsub_token           :string
@@ -131,6 +134,9 @@ class User < ApplicationRecord
       id: id,
       name: name,
       available_name: available_name,
+      azar_display_name: azar_display_name,
+      mono_display_name: mono_display_name,
+      gbits_display_name: gbits_display_name,
       avatar_url: avatar_url,
       type: 'user',
       availability_status: availability_status,
