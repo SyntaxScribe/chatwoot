@@ -2,7 +2,11 @@
 
 import Cookies from 'js-cookie';
 import endPoints from './endPoints';
-import { setAuthCredentials, clearCookiesOnLogout } from '../store/utils/api';
+import {
+  setAuthCredentials,
+  clearCookiesOnLogout,
+  deleteIndexedDBOnLogout,
+} from '../store/utils/api';
 
 export default {
   login(creds) {
@@ -50,6 +54,7 @@ export default {
       axios
         .delete(urlData.url)
         .then(response => {
+          deleteIndexedDBOnLogout();
           clearCookiesOnLogout();
           resolve(response);
         })
@@ -111,6 +116,9 @@ export default {
     password,
     password_confirmation,
     displayName,
+    azarDisplayName,
+    monoDisplayName,
+    gbitsDisplayName,
     avatar,
     ...profileAttributes
   }) {
@@ -122,6 +130,9 @@ export default {
       }
     });
     formData.append('profile[display_name]', displayName || '');
+    formData.append('profile[azar_display_name]', azarDisplayName || '');
+    formData.append('profile[mono_display_name]', monoDisplayName || '');
+    formData.append('profile[gbits_display_name]', gbitsDisplayName || '');
     if (password && password_confirmation) {
       formData.append('profile[password]', password);
       formData.append('profile[password_confirmation]', password_confirmation);

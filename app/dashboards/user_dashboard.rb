@@ -25,6 +25,9 @@ class UserDashboard < Administrate::BaseDashboard
     unconfirmed_email: Field::String,
     name: Field::String,
     display_name: Field::String,
+    azar_display_name: Field::String,
+    mono_display_name: Field::String,
+    gbits_display_name: Field::String,
     email: Field::String,
     tokens: Field::String.with_options(searchable: false),
     created_at: Field::DateTime,
@@ -57,6 +60,9 @@ class UserDashboard < Administrate::BaseDashboard
     name
     type
     display_name
+    azar_display_name
+    mono_display_name
+    gbits_display_name
     email
     created_at
     updated_at
@@ -70,6 +76,9 @@ class UserDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = %i[
     name
     display_name
+    azar_display_name
+    mono_display_name
+    gbits_display_name
     email
     password
     confirmed_at
