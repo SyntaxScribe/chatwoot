@@ -62,6 +62,18 @@ class Api::V1::Widget::ConversationsController < Api::V1::Widget::BaseController
       conversation.status = :resolved
       conversation.save!
     end
+
+    if conversation.status == 'open'
+      conversation.inbox.members.each do |agent|
+        NotificationBuilder.new(
+          notification_type: 'conversation_creation',
+          user: agent,
+          account: account,
+          primary_actor: conversation
+        ).perform
+      end
+    end
+
     head :ok
   end
 
