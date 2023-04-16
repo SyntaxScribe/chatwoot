@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_08_091031) do
+ActiveRecord::Schema.define(version: 2023_04_09_093226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -883,6 +883,9 @@ ActiveRecord::Schema.define(version: 2023_04_08_091031) do
     t.string "azar_display_name"
     t.string "mono_display_name"
     t.string "gbits_display_name"
+    t.text "azar_message_signature"
+    t.text "mono_message_signature"
+    t.text "gbits_message_signature"
     t.index ["email"], name: "index_users_on_email"
     t.index ["pubsub_token"], name: "index_users_on_pubsub_token", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
