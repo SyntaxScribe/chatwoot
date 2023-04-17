@@ -57,12 +57,13 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   def toggle_status
     if params[:status]
       set_conversation_status
+      @conversation.update_assignee(nil) if params[:status] == 'resolved'
       @status = @conversation.save!
     else
       @status = @conversation.toggle_status
     end
     assign_conversation if @conversation.status == 'open' && Current.user.is_a?(User) && Current.user&.agent?
-    send_notification_when_open if @conversation.status == 'open'
+    send_notification_when_open if params[:status] == 'open'
   end
 
   def toggle_typing_status
