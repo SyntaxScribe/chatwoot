@@ -62,6 +62,7 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
       @status = @conversation.toggle_status
     end
     assign_conversation if @conversation.status == 'open' && Current.user.is_a?(User) && Current.user&.agent?
+    send_notification_when_open if @conversation.status == 'open'
   end
 
   def toggle_typing_status
@@ -162,5 +163,16 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
 
   def assignee?
     @conversation.assignee_id? && Current.user == @conversation.assignee
+  end
+
+  def send_notification_when_open
+    @conversation.inbox.members.each do |agent|
+      NotificationBuilder.new(
+        notification_type: 'conversation_creation',
+        user: agent,
+        account: @conversation.account,
+        primary_actor: @conversation
+      ).perform
+    end
   end
 end
