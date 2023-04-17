@@ -63,7 +63,7 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
       @status = @conversation.toggle_status
     end
     assign_conversation if @conversation.status == 'open' && Current.user.is_a?(User) && Current.user&.agent?
-    send_notification_when_open if params[:status] == 'open'
+    send_notification_when_open if @conversation.status == 'open' && @conversation.assignee_id.nil?
   end
 
   def toggle_typing_status
