@@ -59,7 +59,7 @@ Metrics/MethodLength:
 
 # Offense count: 1
 Metrics/PerceivedComplexity:
-  Max: 9
+  Max: 10
 
 # Offense count: 6
 Naming/AccessorMethodName:
